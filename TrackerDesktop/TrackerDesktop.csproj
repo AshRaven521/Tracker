@@ -23,6 +23,18 @@
       <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
       <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.3" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\LogInPageView.axaml.cs">
+      <DependentUpon>LogInPageView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\RegistrationPageView.axaml.cs">
+      <DependentUpon>RegistrationPageView.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>
