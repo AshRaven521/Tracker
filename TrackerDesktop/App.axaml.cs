@@ -1,9 +1,11 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
-using System.Linq;
 using Avalonia.Markup.Xaml;
+using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
+using TrackerDesktop.Data;
+using TrackerDesktop.Data.Services;
 using TrackerDesktop.ViewModels;
 using TrackerDesktop.Views;
 
@@ -18,6 +20,17 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        var collection = new ServiceCollection();
+
+        collection.AddDbContext<TrackerContext>();
+        collection.AddSingleton<MainWindowViewModel>();
+        collection.AddSingleton<LogInViewModel>();
+        collection.AddSingleton<RegistrationViewModel>();
+        collection.AddSingleton<ITrackerDatabaseService, TrackerDatabaseService>();
+
+
+        var services = collection.BuildServiceProvider();
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
@@ -25,7 +38,7 @@ public partial class App : Application
             DisableAvaloniaDataAnnotationValidation();
             desktop.MainWindow = new MainWindow
             {
-                DataContext = new MainWindowViewModel(),
+                DataContext = services.GetRequiredService<MainWindowViewModel>(),
             };
         }
 
