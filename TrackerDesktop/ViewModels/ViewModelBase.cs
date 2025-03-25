@@ -1,7 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace TrackerDesktop.ViewModels;
-
-public class ViewModelBase : ObservableObject
+namespace TrackerDesktop.ViewModels
 {
+    public class ViewModelBase : ObservableObject
+    {
+    }
 }
