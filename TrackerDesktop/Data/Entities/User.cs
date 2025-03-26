@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TrackerDesktop.Data.Entities
 {
@@ -15,6 +16,7 @@ namespace TrackerDesktop.Data.Entities
         public bool IsLoggedIn { get; set; } = false;
 
         public DateTime LastLoggedInDate { get; set; }
+        public List<Step> Steps { get; set; } = new List<Step>();
 
         public User()
         {

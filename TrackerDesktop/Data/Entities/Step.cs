@@ -9,6 +9,7 @@
         public int Speed { get; set; }
         public string Type { get; set; }
         public int Volume { get; set; }
+        public Mode Mode { get; set; } = new Mode();
 
     }
 }
