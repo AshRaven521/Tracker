@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 using TrackerDesktop.Data;
 using TrackerDesktop.Data.Services;
+using TrackerDesktop.Services;
 using TrackerDesktop.ViewModels;
 using TrackerDesktop.Views;
 
@@ -13,6 +14,7 @@ namespace TrackerDesktop;
 
 public partial class App : Application
 {
+
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -24,9 +26,11 @@ public partial class App : Application
 
         collection.AddDbContext<TrackerContext>();
         collection.AddSingleton<MainWindowViewModel>();
-        collection.AddSingleton<LogInViewModel>();
-        collection.AddSingleton<RegistrationViewModel>();
-        collection.AddSingleton<ITrackerDatabaseService, TrackerDatabaseService>();
+        collection.AddSingleton<HomePageViewModel>();
+        collection.AddTransient<LogInPageViewModel>();
+        collection.AddTransient<RegistrationPageViewModel>();
+        collection.AddScoped<IDialogService, DialogService>();
+        collection.AddScoped<ITrackerDatabaseService, TrackerDatabaseService>();
 
 
         var services = collection.BuildServiceProvider();
@@ -40,6 +44,7 @@ public partial class App : Application
             {
                 DataContext = services.GetRequiredService<MainWindowViewModel>(),
             };
+
         }
 
         base.OnFrameworkInitializationCompleted();
