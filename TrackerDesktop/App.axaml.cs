@@ -26,7 +26,7 @@ public partial class App : Application
 
         collection.AddDbContext<TrackerContext>();
         collection.AddSingleton<MainWindowViewModel>();
-        collection.AddSingleton<HomePageViewModel>();
+        collection.AddTransient<HomePageViewModel>();
         collection.AddTransient<LogInPageViewModel>();
         collection.AddTransient<RegistrationPageViewModel>();
         collection.AddScoped<IDialogService, DialogService>();
