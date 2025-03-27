@@ -17,10 +17,16 @@ namespace TrackerDesktop.Data.Entities
 
         public DateTime LastLoggedInDate { get; set; }
         public List<Step> Steps { get; set; } = new List<Step>();
+        public List<Mode> Modes { get; set; } = new List<Mode>();
 
         public User()
         {
 
+        }
+
+        public User(bool isLoggedIn)
+        {
+            IsLoggedIn = isLoggedIn;
         }
 
         public User(string userName, string password, string email, bool isLoggedIn, DateTime loggedInDate)
