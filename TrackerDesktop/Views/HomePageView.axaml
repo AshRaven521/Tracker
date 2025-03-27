@@ -1,0 +1,194 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:TrackerDesktop.ViewModels;assembly=TrackerDesktop"
+             xmlns:models="clr-namespace:TrackerDesktop.Data.Entities;assembly=TrackerDesktop"
+             xmlns:i="using:Avalonia.Xaml.Interactivity"
+             xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+             xmlns:converters="clr-namespace:TrackerDesktop.Converters;assembly=TrackerDesktop"
+             mc:Ignorable="d" 
+             d:DesignWidth="800" 
+             d:DesignHeight="450"
+             x:Class="TrackerDesktop.Views.HomePageView"
+             x:DataType="vm:HomePageViewModel">
+
+  <i:Interaction.Behaviors>
+    <ia:EventTriggerBehavior EventName="Loaded">
+      <ia:InvokeCommandAction Command="{Binding PageLoadedCommand}"/>
+    </ia:EventTriggerBehavior>
+  </i:Interaction.Behaviors>
+
+  <Grid RowDefinitions="Auto, *">
+
+    <StackPanel 
+      Grid.Row="0"
+      Orientation="Horizontal"
+      Spacing="10"
+      Margin="5, 5, 0, 0">
+      
+      <Button 
+        Command="{Binding OpenExcelFileCommand}"
+        HorizontalAlignment="Left">
+        Open Excel file
+      </Button>
+
+      <Button 
+        Command="{Binding SaveExcelFileCommand}">
+        Save Excel File
+      </Button>
+
+      <ComboBox
+        ItemsSource="{Binding ExcelWorkSheetNames}"
+        SelectedItem="{Binding SelectedExcelWorkSheetName}"
+        IsVisible="{Binding IsWorkSheetNamesVisible}">
+
+        <i:Interaction.Behaviors>
+          <ia:EventTriggerBehavior EventName="SelectionChanged">
+            <ia:InvokeCommandAction Command="{Binding ComboBoxItemChangedCommand}"/>
+          </ia:EventTriggerBehavior>
+        </i:Interaction.Behaviors>
+        
+      </ComboBox>
+
+      <Button
+        Command="{Binding SaveChangesCommand}"
+        IsVisible="{Binding IsWorkSheetNamesVisible}">
+        Save To DB
+      </Button>
+
+      <Button 
+        HorizontalAlignment="Right"
+        Command="{Binding LogOutCommand}"
+        IsVisible="{Binding CurrentUser.IsLoggedIn,
+                    UpdateSourceTrigger=PropertyChanged,
+                    Mode=TwoWay}">
+        Log out
+      </Button>
+      
+    </StackPanel>
+    
+    
+    <DataGrid
+      Grid.Row="1"
+      AutoGenerateColumns="False"
+      GridLinesVisibility="All"
+      BorderThickness="1"
+      BorderBrush="Gray"
+      ItemsSource="{Binding Modes,
+                    UpdateSourceTrigger=PropertyChanged,
+                    Mode=TwoWay}"
+      Margin="5, 5, 5, 5"
+      IsVisible="{Binding IsModesVisible}"
+      CanUserResizeColumns="True"
+      IsReadOnly="False"
+      >
+
+      <DataGrid.Columns>
+
+        <DataGridTextColumn
+          Header="ID"
+          Width="*"
+          Binding="{Binding Id,
+                    UpdateSourceTrigger=PropertyChanged,
+                    Mode=TwoWay}"/>
+        
+        <DataGridTextColumn
+          Header="Name"
+          Width="*"
+          Binding="{Binding Name,
+                    UpdateSourceTrigger=PropertyChanged,
+                    Mode=TwoWay}"/>
+
+        <DataGridTextColumn
+          Header="MaxBottleNumber"
+          Width="*"
+          Binding="{Binding MaxBottleNumber,
+                    UpdateSourceTrigger=PropertyChanged,
+                    Mode=TwoWay}"/>
+
+        <DataGridTextColumn
+          Header="MaxUsedTips"
+          Width="*"
+          Binding="{Binding MaxUsedTips,
+                    UpdateSourceTrigger=PropertyChanged,
+                    Mode=TwoWay}"/>
+        
+      </DataGrid.Columns>
+    
+    </DataGrid>
+
+    <DataGrid
+      Grid.Row="1"
+      AutoGenerateColumns="False"
+      GridLinesVisibility="All"
+      BorderThickness="1"
+      BorderBrush="Gray"
+      ItemsSource="{Binding Steps,
+                    UpdateSourceTrigger=PropertyChanged,
+                    Mode=TwoWay}"
+      Margin="5, 5, 5, 5"
+      IsVisible="{Binding IsStepsVisible}"
+      CanUserResizeColumns="True"
+      IsReadOnly="False">
+      
+      <DataGrid.Columns>
+
+        <DataGridTextColumn
+          Header="ID"
+          Width="*"
+          Binding="{Binding Id,
+                    UpdateSourceTrigger=PropertyChanged,
+                    Mode=TwoWay}"/>
+
+        <DataGridTextColumn
+          Header="ModeId"
+          Width="*"
+          Binding="{Binding ModeId,
+                    UpdateSourceTrigger=PropertyChanged,
+                    Mode=TwoWay}"/>
+
+        <DataGridTextColumn
+          Header="Timer"
+          Width="*"
+          Binding="{Binding Timer,
+                    UpdateSourceTrigger=PropertyChanged,
+                    Mode=TwoWay}"/>
+
+        <DataGridTextColumn
+          Header="Destination"
+          Width="*"
+          Binding="{Binding Destination,
+                    UpdateSourceTrigger=PropertyChanged,
+                    Mode=TwoWay}"/>
+
+        <DataGridTextColumn
+          Header="Speed"
+          Width="*"
+          Binding="{Binding Speed,
+                    UpdateSourceTrigger=PropertyChanged,
+                    Mode=TwoWay}"/>
+
+        <DataGridTextColumn
+          Header="Type"
+          Width="*"
+          Binding="{Binding Type,
+                    UpdateSourceTrigger=PropertyChanged,
+                    Mode=TwoWay}"/>
+
+        <DataGridTextColumn
+          Header="Volume"
+          Width="*"
+          Binding="{Binding Volume,
+                    UpdateSourceTrigger=PropertyChanged,
+                    Mode=TwoWay}"/>
+
+      </DataGrid.Columns>
+
+    </DataGrid>
+
+    
+  </Grid>
+  
+  
+</UserControl>
