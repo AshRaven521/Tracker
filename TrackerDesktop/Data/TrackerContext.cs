@@ -17,7 +17,19 @@ namespace TrackerDesktop.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=TrackerDesktop.db");
+            optionsBuilder.UseSqlite("Data Source=TrackerDesktop.db3");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Mode>()
+                .Property(p => p.Id)
+                .ValueGeneratedNever();
+
+            modelBuilder.Entity<Step>()
+                .Property(p => p.Id)
+                .ValueGeneratedNever();
+                
         }
     }
 }
