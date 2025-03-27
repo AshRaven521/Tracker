@@ -1,4 +1,6 @@
 ﻿using Avalonia.Platform.Storage;
+using MsBox.Avalonia.Enums;
+using MsBox.Avalonia;
 using System.Threading.Tasks;
 
 namespace TrackerDesktop.Services
@@ -18,18 +20,6 @@ namespace TrackerDesktop.Services
 
         public async Task<string> OpenFileAsync(IStorageProvider storage)
         {
-            //var openFileDialog = new OpenFilePicker
-
-            //openFileDialog.Filter = "Json files (*.json)|*.json";
-            //openFileDialog.Title = "Выберите файл конфигурации";
-            //openFileDialog.Multiselect = false;
-
-            //if (openFileDialog.ShowDialog() == true)
-            //{
-            //    return openFileDialog.FileName;
-            //}
-            //return string.Empty;
-
             var options = new FilePickerOpenOptions
             {
                 Title = "Open Excel data file",
@@ -45,7 +35,7 @@ namespace TrackerDesktop.Services
             return string.Empty;
         }
 
-        public async Task SaveFileAsync(IStorageProvider storage)
+        public async Task<IStorageFile?> SaveFileAsync(IStorageProvider storage)
         {
             var options = new FilePickerSaveOptions
             {
@@ -53,7 +43,18 @@ namespace TrackerDesktop.Services
                 FileTypeChoices = new[] { Excel },
             };
 
-            await storage.SaveFilePickerAsync(options);
+            var result = await storage.SaveFilePickerAsync(options);
+
+            return result;
+        }
+
+        public async Task ShowMessage(string message)
+        {
+            var box = MessageBoxManager
+                            .GetMessageBoxStandard("Info", message,
+                                ButtonEnum.Ok);
+
+            var result = await box.ShowAsync();
         }
     }
 }

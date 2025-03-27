@@ -6,6 +6,7 @@ namespace TrackerDesktop.Services
     public interface IDialogService
     {
         Task<string> OpenFileAsync(IStorageProvider storage);
-        Task SaveFileAsync(IStorageProvider storage);
+        Task<IStorageFile?> SaveFileAsync(IStorageProvider storage);
+        Task ShowMessage(string message);
     }
 }
